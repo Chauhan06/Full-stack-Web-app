@@ -1,0 +1,23 @@
+name: Surge2020
+
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    name: Surge depolyment
+    
+    steps:  
+      - uses: actions/checkout@v2
+      - name: Installing Node.js 
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      - name: Installing Surge (npm)
+        run: npm install -g surge
+      - name: Run surge with secret token to update URL
+        run: surge ./ irfan06.surge.sh/ --token ${{ secrets.NEW_SURGE }}
